@@ -25,7 +25,7 @@ public class DeleteTaskController extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             String id = request.getParameter("id");
-            boolean isDeleteSuccessful = taskDao.delete(id);
+            taskDao.delete(id);
             response.sendRedirect("/to-do-list");
     }
 }

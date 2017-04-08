@@ -84,16 +84,12 @@ public class TaskDaoRDBMS implements TaskDao  {
             statement.setBoolean(3, entity.isTopPriority());
             statement.setInt(4, entity.getEstimation());
             statement.setInt(5, Integer.valueOf(entity.getId()));
-
-            ResultSet result = statement.executeQuery();
-            if(result.next()) {
-                task = parseTasksResultSet(result);
-            }
+            statement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }
-        return task;
+        return entity;
     }
 
     @Override
