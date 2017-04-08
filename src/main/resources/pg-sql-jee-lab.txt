@@ -1,0 +1,38 @@
+DROP TABLE tasks;
+CREATE TABLE tasks (
+    id SERIAL PRIMARY KEY,
+    name varchar(50) NOT NULL,
+    description varchar(150),
+    date_created timestamp,
+    top_priority boolean,
+    estimation integer
+);
+
+INSERT INTO tasks(name, description, date_created, top_priority, estimation) 
+VALUES('task1', 'description1', current_timestamp, false, 3);
+
+INSERT INTO tasks(name, description, date_created, top_priority, estimation) 
+VALUES('master thesis define topic', 'description2', '2016-12-12', true, 6);
+
+INSERT INTO tasks(name, description, date_created, top_priority, estimation) 
+VALUES('java lab1 implement', 'description3', current_timestamp, true, 5);
+
+
+SELECT * FROM tasks;
+SELECT * FROM tasks WHERE top_priority = true;
+SELECT * FROM tasks WHERE name LIKE '%java%' or description LIKE '%java%';
+SELECT * FROM tasks order by date_created;
+SELECT * FROM tasks order by top_priority desc, date_created;
+DELETE FROM tasks WHERE id = 2;
+
+
+
+db.tasks.insert( { name: "task1", description: "description1", top_priority: false, date_created: new Date(), estimation: NumberInt(3) } )
+db.tasks.insert( { name: "master thesis define topic", description: "description2", top_priority: true, date_created: new Date(), estimation: NumberInt(8) } )
+db.tasks.insert( { name: "java lab1 implement", description: "description3", top_priority: true, date_created: new Date(), estimation: NumberInt(6) } )
+
+db.getCollection('tasks').find({})
+db.getCollection('tasks').find({top_priority: true})
+db.getCollection('tasks').find({name: {$regex : ".*java.*"}})
+db.getCollection('tasks').find().sort({ date: -1 })
+db.getCollection('tasks').find().sort({ top_priority: -1, date_created: 1})
